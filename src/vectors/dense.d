@@ -52,7 +52,6 @@ class DVec : Vector {
 	}
 	
 	DVec opBinary(string op)(double rhs) {
-		assert(this.dimension == rhs.dimension);
 		DVec result = new DVec(this.dimension);
 		for(uint i=0; i<vals.length; i++)
 			mixin("result.vals[i] = vals[i] "~op~"rhs;");
@@ -61,14 +60,15 @@ class DVec : Vector {
 	
 	DVec opBinaryRight(string op)(double rhs) {
 		static if(op == "+" || op == "*")
-			return opBinary(op)(rhs);
+			return opBinary!(op)(rhs);
 		else static if(op == "-" || op == "/")
-			return rhs.opBinary("/")(this);
+			return rhs.opBinary!(op)(this);
 		else static
 			assert(0, "Operator "~op~" not implemented");
 	}
 	
 	void opOpAssign(string op)(DVec rhs) {
+		assert(this.dimension == rhs.dimension);
 		for(uint i=0; i<vals.length; i++)
 			mixin("vals[i] "~op~"= rhs.vals[i];");
 	}
