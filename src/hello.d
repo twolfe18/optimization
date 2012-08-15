@@ -7,7 +7,7 @@ import std.c.stdio;
 import std.format;
 import parsing, sparse, misc;
  
-void main() {
+void mainish() {
 	writeln("Hello World!");
   
 	uint dimension = cast(uint) 1e9;

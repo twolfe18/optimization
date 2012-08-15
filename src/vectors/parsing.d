@@ -22,6 +22,7 @@ LSVec parseLine(char[] line, uint dim, string delim) {
 		else
 			vec.elems[i-1] = parseElem(t);
 	}
+	writeln("returning from parseline");
 	return vec;
 }
 

@@ -1,5 +1,6 @@
 
 import misc, dense;
+import std.math;
 
 class SVec : Vector {
 	Elem[] elems;
@@ -10,22 +11,36 @@ class SVec : Vector {
 //		this.elems.length = 20;	// a guess
 	}
 	
-	~this() {
-		delete elems;
-	}
+	// you can only free memory if you somehow allocated it explicitly
+	// TODO read up on this...
+//	~this() {
+//		delete elems;
+//	}
 	
 	double get(uint index) {
-		return -1;
+		foreach(Elem e; elems)
+			if(e.index == index)
+				return e.value;
+		return 0.0;
 	}
 	
 	void set(uint index, double val) {
-		
+		foreach(uint i, Elem e; elems) {
+			if(e.index == index) {
+				e.value = val;
+				return;
+			}
+		}
+		throw new Exception("haven't added support for adding a new index yet");
 	}
 	
 	ulong dimension() { return dim; }
 	
 	double lpNorm(double p) {
-		return -1;
+		double s = 0.0;
+		foreach(Elem e; elems)
+			s += pow(e.value, p);
+		return pow(s, 1/p);
 	}
 }
 

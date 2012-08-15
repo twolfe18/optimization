@@ -31,7 +31,7 @@ class BacktrackingLineSearch {
 		}
 		while(increase < 1e-4
 			&& iter++ < maxIter
-			&& decay > 1e-9);
+			&& alpha > 1e-9);
 		return increase;
 	}
 	
