@@ -12,6 +12,10 @@ interface GradientOpt : OptFunction {
 }
 
 interface StochasticGradientOpt : GradientOpt {
+	uint numInstances();
 	void setSubset(int[] indices);
 }
 
+interface StepSchedule {
+	double stepAt(uint epoch);
+}

@@ -1,4 +1,6 @@
 
+import std.stdio;
+
 // 2-way map, similar to Mallet's Alphabet
 // to use this, T must implement:
 // hash_t toHash()
@@ -23,8 +25,12 @@ class Bimap(T) {
 	}
 	
 	ulong lookupOrAdd(T obj) {
-		auto p = obj in toIndex;
-		if(p) return *p;
+		writeln("in lookupOrAdd");
+		ulong* p = obj in toIndex;
+		if(p) {
+			writeln("found p = ", p);
+			return *p;
+		}
 		ulong i = toObject.length;
 		toObject ~= obj;
 		toIndex[obj] = i;
